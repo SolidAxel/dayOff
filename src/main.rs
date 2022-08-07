@@ -4,41 +4,42 @@ use std::io::stdin;
 fn main() {
     println!("This is the start of dayOff programming!");
     // User input from cmdline
-    let mut user_year_input = String::new();
-    let mut user_weekends_off = String::new();
-    let mut weekends_off: String;
-    let mut year: i32;
-    let mut days: i32;
-    loop {
-        user_year_input.clear();
-        println!("What year are you asking for?");
-        stdin()
-            .read_line(&mut user_year_input)
-            .expect("Failed to read line.");
-        year = match user_year_input.trim().parse() {
-            Ok(num) => num,
-            Err(_) => continue,
-        };
-        days = days_in_year(year);
-        if year >= std::i32::MIN {
-            break;
-        }
-    }
-    loop {
-        user_weekends_off.clear();
-        println!("Does your workplace give you weekends off? (y/n)");
-        stdin()
-            .read_line(&mut user_weekends_off)
-            .expect("Failed to read line.");
-        weekends_off = user_weekends_off
-            .trim()
-            .parse()
-            .expect("Input is not a string.");
-        if weekends_off.to_ascii_lowercase() == "n" || weekends_off.to_ascii_lowercase() == "y" {
-            break;
-        }
-        println!("Invalid answer to \"weekends off\" question.");
-    }
+    let user_year_input = String::new();
+    let user_weekends_off = String::new();
+    let weekends_off: String;
+    let year: i32;
+    let days: i32;
+    // loop {
+    //     user_year_input.clear();
+    //     println!("What year are you asking for?");
+    //     stdin()
+    //         .read_line(&mut user_year_input)
+    //         .expect("Failed to read line.");
+    //     year = match user_year_input.trim().parse() {
+    //         Ok(num) => num,
+    //         Err(_) => continue,
+    //     };
+    //     days = days_in_year(year);
+    //     if year >= std::i32::MIN {
+    //         break;
+    //     }
+    // }
+    // loop {
+    //     user_weekends_off.clear();
+    //     println!("Does your workplace give you weekends off? (y/n)");
+    //     stdin()
+    //         .read_line(&mut user_weekends_off)
+    //         .expect("Failed to read line.");
+    //     weekends_off = user_weekends_off
+    //         .trim()
+    //         .parse()
+    //         .expect("Input is not a string.");
+    //     if weekends_off.to_ascii_lowercase() == "n" || weekends_off.to_ascii_lowercase() == "y" {
+    //         break;
+    //     }
+    //     println!("Invalid answer to \"weekends off\" question.");
+    // }
+    (year, days, weekends_off) = get_user_input(user_year_input, user_weekends_off);
     if weekends_off == "y" {
         build_holiday_list(days, year);
     }
@@ -61,8 +62,41 @@ fn build_holiday_list(days_in_year: i32, year: i32) {
 }
 // Get user input for years and weekends off question
 // Unimplemented for now
-fn _get_user_input() {
-    todo!();
+fn get_user_input(mut year_input_var: String, mut answer_input_var: String) -> (i32, i32, String) {
+    let mut weekends_off: String;
+    let mut days: i32;
+    let mut year: i32;
+    loop {
+        year_input_var.clear();
+        println!("What year are you asking for?");
+        stdin()
+            .read_line(&mut year_input_var)
+            .expect("Failed to read line.");
+        year = match year_input_var.trim().parse() {
+            Ok(num) => num,
+            Err(_) => continue,
+        };
+        days = days_in_year(year);
+        if year >= std::i32::MIN {
+            break;
+        }
+    }
+    loop {
+        answer_input_var.clear();
+        println!("Does your workplace give you weekends off? (y/n)");
+        stdin()
+            .read_line(&mut answer_input_var)
+            .expect("Failed to read line.");
+        weekends_off = answer_input_var
+            .trim()
+            .parse()
+            .expect("Input is not a string.");
+        if weekends_off.to_ascii_lowercase() == "n" || weekends_off.to_ascii_lowercase() == "y" {
+            break;
+        }
+        println!("Invalid answer to \"weekends off\" question.");
+    }
+    (year, days, weekends_off)
 }
 // Get the number of days for a given year
 fn days_in_year(year: i32) -> i32 {
