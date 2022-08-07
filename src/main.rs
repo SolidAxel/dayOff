@@ -4,19 +4,44 @@ use std::io::stdin;
 fn main() {
     println!("This is the start of dayOff programming!");
     // User input from cmdline
-    println!("What year are you asking for?");
+
     let mut user_year_input = String::new();
-    stdin()
-        .read_line(&mut user_year_input)
-        .expect("Failed to read line.");
-    let year: i32 = user_year_input
-        .trim()
-        .parse()
-        .expect("Input not an integer.");
-    let days_in_year: i32 = days_in_year(year);
-    build_holiday_list(days_in_year, year);
+    let mut user_weekends_off = String::new();
+    let mut year: i32;
+    let mut days: i32;
+    loop {
+        user_year_input.clear();
+        println!("What year are you asking for?");
+        stdin()
+            .read_line(&mut user_year_input)
+            .expect("Failed to read line.");
+        year = match user_year_input.trim().parse() {
+            Ok(num) => num,
+            Err(_) => continue,
+        };
+        days = days_in_year(year);
+        if year >= std::i32::MIN {
+            break;
+        }
+    }
+    println!("{days}");
+    loop {
+        user_weekends_off.clear();
+        println!("Does your workplace give you weekends off? (y/n)");
+        stdin()
+            .read_line(&mut user_weekends_off)
+            .expect("Failed to read line.");
+        let weekends_off: String = user_weekends_off
+            .trim()
+            .parse()
+            .expect("Input is not a string.");
+        if weekends_off.to_ascii_lowercase() == "n" || weekends_off.to_ascii_lowercase() == "y" {
+            break;
+        }
+        println!("Invalid answer to \"weekends off\" question.");
+    }
 }
-// Build list of holidays weekends are given off already
+// Build list of holidays if weekends are given off already
 fn build_holiday_list(days_in_year: i32, year: i32) {
     let cal = bdays::calendars::us::USSettlement;
     let mut vector: Vec<NaiveDate> = Vec::new();
