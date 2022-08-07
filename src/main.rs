@@ -4,7 +4,6 @@ use std::io::stdin;
 fn main() {
     println!("This is the start of dayOff programming!");
     // User input from cmdline
-
     let mut user_year_input = String::new();
     let mut user_weekends_off = String::new();
     let mut year: i32;
@@ -42,7 +41,8 @@ fn main() {
     }
 }
 // Build list of holidays if weekends are given off already
-fn build_holiday_list(days_in_year: i32, year: i32) {
+// Unused for now
+fn _build_holiday_list(days_in_year: i32, year: i32) {
     let cal = bdays::calendars::us::USSettlement;
     let mut vector: Vec<NaiveDate> = Vec::new();
     let mut iterator: i32 = 1;
@@ -54,6 +54,11 @@ fn build_holiday_list(days_in_year: i32, year: i32) {
         iterator += 1;
     }
     println!("{:?}", vector);
+}
+// Get user input for years and weekends off question
+// Unimplemented for now
+fn _get_user_input() {
+    todo!();
 }
 // Get the number of days for a given year
 fn days_in_year(year: i32) -> i32 {
