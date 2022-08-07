@@ -6,6 +6,7 @@ fn main() {
     // User input from cmdline
     let mut user_year_input = String::new();
     let mut user_weekends_off = String::new();
+    let mut weekends_off: String;
     let mut year: i32;
     let mut days: i32;
     loop {
@@ -23,14 +24,13 @@ fn main() {
             break;
         }
     }
-    println!("{days}");
     loop {
         user_weekends_off.clear();
         println!("Does your workplace give you weekends off? (y/n)");
         stdin()
             .read_line(&mut user_weekends_off)
             .expect("Failed to read line.");
-        let weekends_off: String = user_weekends_off
+        weekends_off = user_weekends_off
             .trim()
             .parse()
             .expect("Input is not a string.");
@@ -39,10 +39,14 @@ fn main() {
         }
         println!("Invalid answer to \"weekends off\" question.");
     }
+    if weekends_off == "y" {
+        build_holiday_list(days, year);
+    }
 }
+
 // Build list of holidays if weekends are given off already
 // Unused for now
-fn _build_holiday_list(days_in_year: i32, year: i32) {
+fn build_holiday_list(days_in_year: i32, year: i32) {
     let cal = bdays::calendars::us::USSettlement;
     let mut vector: Vec<NaiveDate> = Vec::new();
     let mut iterator: i32 = 1;
