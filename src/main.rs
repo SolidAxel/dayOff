@@ -1,6 +1,6 @@
 use bdays::HolidayCalendar;
 use chrono::NaiveDate;
-use std::{array, io::stdin, vec};
+use std::io::stdin;
 fn main() {
     println!("This is the start of dayOff programming!");
     // User input from cmdline
@@ -22,8 +22,9 @@ fn build_holiday_list(days_in_year: i32, year: i32) {
     let mut vector: Vec<NaiveDate> = Vec::new();
     let mut iterator: i32 = 1;
     while iterator < days_in_year {
-        if cal.is_holiday(NaiveDate::from_yo(year, iterator.try_into().unwrap())) {
-            vector.push(NaiveDate::from_yo(year, iterator.try_into().unwrap()));
+        let day = NaiveDate::from_yo(year, iterator.try_into().unwrap());
+        if cal.is_holiday(day) {
+            vector.push(day);
         }
         iterator += 1;
     }
