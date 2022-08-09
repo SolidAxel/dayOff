@@ -19,6 +19,7 @@ fn get_user_input() -> (i32, i32, String) {
     let mut user_year_input: String = String::new();
     let mut user_weekends_off: String = String::new();
     let mut user_holidays_given_off: String = String::new();
+    let mut _vector: Vec<String> = Vec::new();
     let mut holidays_off: String;
     let mut weekends_off: String;
     let days: i32;
@@ -66,7 +67,7 @@ fn get_user_input() -> (i32, i32, String) {
             .trim()
             .parse()
             .expect("Input is not as expected.");
-        // Check that input actually matches format requested
+        // Check that input actually matches format requested and add to vector.
         if holidays_off != "" {
             break;
         }
