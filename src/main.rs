@@ -1,6 +1,6 @@
 use bdays::HolidayCalendar;
 use chrono::NaiveDate;
-use std::io::{stdin, Read};
+use std::io::stdin;
 fn main() {
     println!("This is the start of dayOff programming!");
     // User input from cmdline
@@ -66,6 +66,7 @@ fn get_user_input() -> (i32, i32, String) {
             .trim()
             .parse()
             .expect("Input is not as expected.");
+        // Check that input actually matches format requested
         if holidays_off != "" {
             break;
         }
