@@ -7,36 +7,6 @@ fn main() {
     let weekends_off: String;
     let year: i32;
     let days: i32;
-    // loop {
-    //     user_year_input.clear();
-    //     println!("What year are you asking for?");
-    //     stdin()
-    //         .read_line(&mut user_year_input)
-    //         .expect("Failed to read line.");
-    //     year = match user_year_input.trim().parse() {
-    //         Ok(num) => num,
-    //         Err(_) => continue,
-    //     };
-    //     days = days_in_year(year);
-    //     if year >= std::i32::MIN {
-    //         break;
-    //     }
-    // }
-    // loop {
-    //     user_weekends_off.clear();
-    //     println!("Does your workplace give you weekends off? (y/n)");
-    //     stdin()
-    //         .read_line(&mut user_weekends_off)
-    //         .expect("Failed to read line.");
-    //     weekends_off = user_weekends_off
-    //         .trim()
-    //         .parse()
-    //         .expect("Input is not a string.");
-    //     if weekends_off.to_ascii_lowercase() == "n" || weekends_off.to_ascii_lowercase() == "y" {
-    //         break;
-    //     }
-    //     println!("Invalid answer to \"weekends off\" question.");
-    // }
     (year, days, weekends_off) = get_user_input();
     if weekends_off == "y" {
         build_holiday_list(days, year);
