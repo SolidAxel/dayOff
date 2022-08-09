@@ -1,6 +1,6 @@
 use bdays::HolidayCalendar;
 use chrono::NaiveDate;
-use std::io::stdin;
+use std::io::{stdin, Read};
 fn main() {
     println!("This is the start of dayOff programming!");
     // User input from cmdline
@@ -14,9 +14,12 @@ fn main() {
 }
 // Get user input for years and weekends off question
 // Unimplemented for now
+// TODO: Get user input for days given off by workplace
 fn get_user_input() -> (i32, i32, String) {
     let mut user_year_input: String = String::new();
     let mut user_weekends_off: String = String::new();
+    let mut user_holidays_given_off: String = String::new();
+    let mut holidays_off: String;
     let mut weekends_off: String;
     let mut days: i32;
     let mut year: i32;
@@ -49,6 +52,24 @@ fn get_user_input() -> (i32, i32, String) {
             break;
         }
         println!("Invalid answer to \"weekends off\" question.");
+    }
+    loop {
+        user_holidays_given_off.clear();
+        println!(
+            "What holidays does your workplace give you off? Please enter in the following format:"
+        );
+        println!("YYYY-m-dd");
+        stdin()
+            .read_line(&mut user_holidays_given_off)
+            .expect("Failed to read line.");
+        holidays_off = user_holidays_given_off
+            .trim()
+            .parse()
+            .expect("Input is not as expected.");
+        if holidays_off != "" {
+            break;
+        }
+        println!("Empty answer to \"holidays off\" question.");
     }
     (year, days, weekends_off)
 }
