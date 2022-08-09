@@ -21,7 +21,7 @@ fn get_user_input() -> (i32, i32, String) {
     let mut user_holidays_given_off: String = String::new();
     let mut holidays_off: String;
     let mut weekends_off: String;
-    let mut days: i32;
+    let days: i32;
     let mut year: i32;
     loop {
         user_year_input.clear();
@@ -33,8 +33,8 @@ fn get_user_input() -> (i32, i32, String) {
             Ok(num) => num,
             Err(_) => continue,
         };
-        days = days_in_year(year);
         if year >= std::i32::MIN {
+            days = days_in_year(year);
             break;
         }
     }
