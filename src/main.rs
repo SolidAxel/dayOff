@@ -75,7 +75,7 @@ fn get_user_input() -> (i32, i32, String) {
     }
     (year, days, weekends_off)
 }
-// Figure out how to handle panics
+// Figure out how to handle panics; maybe change to read in one by one and if "done" entered then stop asking for input
 fn parse_dates(holidays_off: String) -> Vec<NaiveDate> {
     let mut vector: Vec<NaiveDate> = Vec::new();
     let null_date: NaiveDate = NaiveDate::from_ymd(1, 1, 1);
