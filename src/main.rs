@@ -57,7 +57,7 @@ fn get_user_input() -> (i32, i32, String) {
     loop {
         user_holidays_given_off.clear();
         println!(
-            "What holidays does your workplace give you off? Please enter in the following format:"
+            "What holidays does your workplace give you off? Please enter in the following format with only spaces in between dates:"
         );
         println!("YYYY-m-dd");
         stdin()
