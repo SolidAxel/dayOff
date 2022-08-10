@@ -1,6 +1,6 @@
 use bdays::HolidayCalendar;
 use chrono::NaiveDate;
-use std::{io::stdin, str::SplitWhitespace};
+use std::io::stdin;
 fn main() {
     println!("This is the start of dayOff programming!");
     // User input from cmdline
@@ -66,22 +66,30 @@ fn get_user_input() -> (i32, i32, String) {
             .trim()
             .parse()
             .expect("Input is not as expected.");
-        let holidays_off_split = holidays_off.split_whitespace();
         // Check that input actually matches format requested and add to vector.
         if holidays_off != "" {
-            parse_dates(holidays_off_split);
+            parse_dates(holidays_off);
             break;
         }
         println!("Empty answer to \"holidays off\" question.");
     }
     (year, days, weekends_off)
 }
-// Build list of holidays if weekends are given off already
-// Unused for now
-fn parse_dates(string: SplitWhitespace) -> Vec<NaiveDate> {
+// Figure out how to handle panics
+fn parse_dates(holidays_off: String) -> Vec<NaiveDate> {
     let mut vector: Vec<NaiveDate> = Vec::new();
+    let null_date: NaiveDate = NaiveDate::from_ymd(1, 1, 1);
+    for s in holidays_off.split_whitespace() {
+        let date = NaiveDate::parse_from_str(s, "%Y-%m-%d").expect("Couldn't parse date");
+        if date != null_date {
+            vector.push(date)
+        }
+    }
+    println!("{:?}", vector);
     vector
 }
+// Build list of holidays if weekends are given off already
+// Unused for now
 fn build_holiday_list(days_in_year: i32, year: i32) {
     let cal = bdays::calendars::us::USSettlement;
     let mut vector: Vec<NaiveDate> = Vec::new();
