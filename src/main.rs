@@ -21,6 +21,7 @@ fn get_user_input() -> (i32, i32, String) {
     let mut user_holidays_given_off: String = String::new();
     let mut holidays_off: String;
     let mut weekends_off: String;
+    let mut vector: Vec<NaiveDate> = Vec::new();
     let days: i32;
     let mut year: i32;
     loop {
@@ -68,16 +69,17 @@ fn get_user_input() -> (i32, i32, String) {
             .expect("Input is not as expected.");
         // Check that input actually matches format requested and add to vector.
         if holidays_off != "" {
-            parse_dates(holidays_off);
+            parse_dates(holidays_off, &mut vector);
             break;
         }
         println!("Empty answer to \"holidays off\" question.");
     }
+    println!("{:?}", vector);
     (year, days, weekends_off)
 }
 // Figure out how to handle panics; maybe change to read in one by one and if "done" entered then stop asking for input
-fn parse_dates(holidays_off: String) -> Vec<NaiveDate> {
-    let mut vector: Vec<NaiveDate> = Vec::new();
+fn parse_dates(holidays_off: String, vector: &mut Vec<NaiveDate>) -> &Vec<NaiveDate> {
+    // let mut vector: Vec<NaiveDate> = Vec::new();
     let null_date: NaiveDate = NaiveDate::from_ymd(1, 1, 1);
     for s in holidays_off.split_whitespace() {
         let date = NaiveDate::parse_from_str(s, "%m-%d-%Y").expect("Couldn't parse date");
@@ -85,7 +87,7 @@ fn parse_dates(holidays_off: String) -> Vec<NaiveDate> {
             vector.push(date)
         }
     }
-    println!("{:?}", vector);
+    // println!("{:?}", vector);
     vector
 }
 // Build list of holidays if weekends are given off already
