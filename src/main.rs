@@ -7,15 +7,17 @@ fn main() {
     let weekends_off: String;
     let year: i32;
     let days: i32;
-    (year, days, weekends_off) = get_user_input();
+    let vector: Vec<NaiveDate>;
+    (year, days, weekends_off, vector) = get_user_input();
     if weekends_off == "y" {
         build_holiday_list(days, year);
     }
+    println!("{:?}", vector)
 }
 // Get user input for years and weekends off question
 // Unimplemented for now
 // TODO: Get user input for days given off by workplace
-fn get_user_input() -> (i32, i32, String) {
+fn get_user_input() -> (i32, i32, String, Vec<NaiveDate>) {
     let mut user_year_input: String = String::new();
     let mut user_weekends_off: String = String::new();
     let mut user_holidays_given_off: String = String::new();
@@ -74,8 +76,7 @@ fn get_user_input() -> (i32, i32, String) {
         }
         println!("Empty answer to \"holidays off\" question.");
     }
-    println!("{:?}", vector);
-    (year, days, weekends_off)
+    (year, days, weekends_off, vector)
 }
 // Figure out how to handle panics; maybe change to read in one by one and if "done" entered then stop asking for input
 fn parse_dates(holidays_off: String, vector: &mut Vec<NaiveDate>) -> &Vec<NaiveDate> {
