@@ -80,7 +80,7 @@ fn parse_dates(holidays_off: String) -> Vec<NaiveDate> {
     let mut vector: Vec<NaiveDate> = Vec::new();
     let null_date: NaiveDate = NaiveDate::from_ymd(1, 1, 1);
     for s in holidays_off.split_whitespace() {
-        let date = NaiveDate::parse_from_str(s, "%m-%d-%YYYY").expect("Couldn't parse date");
+        let date = NaiveDate::parse_from_str(s, "%m-%d-%Y").expect("Couldn't parse date");
         if date != null_date {
             vector.push(date)
         }
