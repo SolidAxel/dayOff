@@ -58,7 +58,7 @@ fn get_user_input() -> (i32, i32, String) {
         println!(
             "What holidays does your workplace give you off? Please enter in the following format with only spaces in between dates:"
         );
-        println!("YYYY-m-dd");
+        println!("m-dd-yyyy");
         stdin()
             .read_line(&mut user_holidays_given_off)
             .expect("Failed to read line.");
@@ -80,7 +80,7 @@ fn parse_dates(holidays_off: String) -> Vec<NaiveDate> {
     let mut vector: Vec<NaiveDate> = Vec::new();
     let null_date: NaiveDate = NaiveDate::from_ymd(1, 1, 1);
     for s in holidays_off.split_whitespace() {
-        let date = NaiveDate::parse_from_str(s, "%Y-%m-%d").expect("Couldn't parse date");
+        let date = NaiveDate::parse_from_str(s, "%m-%d-%YYYY").expect("Couldn't parse date");
         if date != null_date {
             vector.push(date)
         }
