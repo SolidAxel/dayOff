@@ -1,6 +1,6 @@
 use bdays::HolidayCalendar;
-use chrono::NaiveDate;
-use std::io::stdin;
+use chrono::{Datelike, NaiveDate, Weekday};
+use std::{collections::HashMap, io::stdin};
 fn main() {
     println!("This is the start of dayOff programming!");
     // User input from cmdline
@@ -12,7 +12,8 @@ fn main() {
     if weekends_off == "y" {
         build_holiday_list(days, year);
     }
-    println!("{:?}", vector)
+    let var = day_of_week_count(vector);
+    println!("{:?}", var);
 }
 // Get user input for years and weekends off question
 // Unimplemented for now
@@ -61,7 +62,7 @@ fn get_user_input() -> (i32, i32, String, Vec<NaiveDate>) {
         println!(
             "What holidays does your workplace give you off? Please enter in the following format with only spaces in between dates:"
         );
-        println!("m-dd");
+        println!("m-dd-YYYY");
         stdin()
             .read_line(&mut user_holidays_given_off)
             .expect("Failed to read line.");
@@ -83,7 +84,7 @@ fn parse_dates(holidays_off: String, vector: &mut Vec<NaiveDate>) -> &Vec<NaiveD
     // let mut vector: Vec<NaiveDate> = Vec::new();
     let null_date: NaiveDate = NaiveDate::from_ymd(1, 1, 1);
     for s in holidays_off.split_whitespace() {
-        let date = NaiveDate::parse_from_str(s, "%m-%d").expect("Couldn't parse date");
+        let date = NaiveDate::parse_from_str(s, "%m-%d-%Y").expect("Couldn't parse date");
         if date != null_date {
             vector.push(date)
         }
@@ -112,4 +113,20 @@ fn days_in_year(year: i32) -> i32 {
     let from_ymd = NaiveDate::from_ymd;
     let days = (since(from_ymd(year, 1, 1), from_ymd(year + 1, 1, 1))).num_days();
     return days.abs().try_into().unwrap();
+}
+fn day_of_week_count(vector: Vec<NaiveDate>) -> HashMap<Weekday, u8> {
+    let mut map = HashMap::from([
+        (Weekday::Mon, 0),
+        (Weekday::Tue, 0),
+        (Weekday::Wed, 0),
+        (Weekday::Thu, 0),
+        (Weekday::Fri, 0),
+        (Weekday::Sat, 0),
+        (Weekday::Sun, 0),
+    ]);
+    for date in vector {
+        *map.entry(date.weekday()).or_insert(0) += 1;
+    }
+    println!("{:?}", map);
+    map
 }
