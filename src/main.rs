@@ -114,6 +114,8 @@ fn days_in_year(year: i32) -> i32 {
     let days = (since(from_ymd(year, 1, 1), from_ymd(year + 1, 1, 1))).num_days();
     return days.abs().try_into().unwrap();
 }
+// From days input by user, increment "values" for that day in order to keep tabs on
+// day of week with most holidays.
 fn day_of_week_count(vector: Vec<NaiveDate>) -> Vec<(Weekday, u8)> {
     let mut day_vector: Vec<(Weekday, u8)> = Vec::new();
     day_vector.insert(0, (Weekday::Mon, 0));
@@ -133,4 +135,8 @@ fn day_of_week_count(vector: Vec<NaiveDate>) -> Vec<(Weekday, u8)> {
         }
     }
     day_vector
+}
+// Get days of week with 1st and 2nd most holidays landing on it
+fn get_highest_days_week(day_counts: Vec<(Weekday, u8)>) -> Vec<(Weekday)> {
+    let vector: Vec<Weekday> = Vec::new();
 }
