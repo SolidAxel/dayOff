@@ -114,18 +114,23 @@ fn days_in_year(year: i32) -> i32 {
     let days = (since(from_ymd(year, 1, 1), from_ymd(year + 1, 1, 1))).num_days();
     return days.abs().try_into().unwrap();
 }
-fn day_of_week_count(vector: Vec<NaiveDate>) -> HashMap<Weekday, u8> {
-    let mut map = HashMap::from([
-        (Weekday::Mon, 0),
-        (Weekday::Tue, 0),
-        (Weekday::Wed, 0),
-        (Weekday::Thu, 0),
-        (Weekday::Fri, 0),
-        (Weekday::Sat, 0),
-        (Weekday::Sun, 0),
-    ]);
+fn day_of_week_count(vector: Vec<NaiveDate>) -> Vec<(Weekday, u8)> {
+    let mut day_vector: Vec<(Weekday, u8)> = Vec::new();
+    day_vector.insert(0, (Weekday::Mon, 0));
+    day_vector.insert(1, (Weekday::Tue, 0));
+    day_vector.insert(2, (Weekday::Wed, 0));
+    day_vector.insert(3, (Weekday::Thu, 0));
+    day_vector.insert(4, (Weekday::Fri, 0));
+    day_vector.insert(5, (Weekday::Sat, 0));
+    day_vector.insert(6, (Weekday::Sun, 0));
+
     for date in vector {
-        *map.entry(date.weekday()).or_insert(0) += 1;
+        // *map.entry(date.weekday()).or_insert(0) += 1;
+        for day in &mut day_vector {
+            if date.weekday() == day.0 {
+                day.1 += 1;
+            }
+        }
     }
-    map
+    day_vector
 }
