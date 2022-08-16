@@ -62,7 +62,7 @@ fn get_user_input() -> (i32, i32, String, Vec<NaiveDate>) {
         println!(
             "What holidays does your workplace give you off? Please enter in the following format with only spaces in between dates:"
         );
-        println!("m-dd-YYYY");
+        println!("m-d-YYYY");
         stdin()
             .read_line(&mut user_holidays_given_off)
             .expect("Failed to read line.");
