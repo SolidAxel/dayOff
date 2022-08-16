@@ -1,6 +1,6 @@
 use bdays::HolidayCalendar;
 use chrono::{Datelike, NaiveDate, Weekday};
-use std::io::stdin;
+use std::{io::stdin, ops::Index};
 fn main() {
     println!("This is the start of dayOff programming!");
     // User input from cmdline
@@ -13,7 +13,7 @@ fn main() {
         build_holiday_list(days, year);
     }
     let var = day_of_week_count(vector);
-    println!("{:?}", var);
+    get_highest_days_week(var);
 }
 // Get user input for years and weekends off question
 // Unimplemented for now
@@ -137,6 +137,19 @@ fn day_of_week_count(vector: Vec<NaiveDate>) -> Vec<(Weekday, u8)> {
     day_vector
 }
 // Get days of week with 1st and 2nd most holidays landing on it
-fn get_highest_days_week(day_counts: Vec<(Weekday, u8)>) -> Vec<(Weekday)> {
-    let vector: Vec<Weekday> = Vec::new();
+fn get_highest_days_week(mut day_counts: Vec<(Weekday, u8)>) {
+    if day_counts.len() > 0 {
+        day_counts.sort_by_key(|k| k.1);
+        day_counts.reverse();
+        println!(
+            "Day of the week with most holidays landing on it is: {:?} with {:?} holidays.",
+            day_counts.index(0).0,
+            day_counts.index(0).1
+        );
+        println!(
+            "Day of the week with second most holidays landing on it is: {:?} with {:?} holidays.",
+            day_counts.index(1).0,
+            day_counts.index(1).1
+        );
+    }
 }
