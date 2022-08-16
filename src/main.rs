@@ -127,6 +127,5 @@ fn day_of_week_count(vector: Vec<NaiveDate>) -> HashMap<Weekday, u8> {
     for date in vector {
         *map.entry(date.weekday()).or_insert(0) += 1;
     }
-    println!("{:?}", map);
     map
 }
