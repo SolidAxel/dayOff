@@ -1,6 +1,6 @@
 use bdays::HolidayCalendar;
 use chrono::{Datelike, NaiveDate, Weekday};
-use std::{collections::HashMap, io::stdin};
+use std::io::stdin;
 fn main() {
     println!("This is the start of dayOff programming!");
     // User input from cmdline
