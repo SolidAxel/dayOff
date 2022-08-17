@@ -1,7 +1,9 @@
+mod gui;
 use bdays::HolidayCalendar;
 use chrono::{Datelike, NaiveDate, Weekday};
 use std::{io::stdin, ops::Index};
 fn main() {
+    // gui::gui();
     println!("This is the start of dayOff programming!");
     // User input from cmdline
     let weekends_off: String;

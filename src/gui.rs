@@ -2,7 +2,7 @@ use gtk;
 use gtk::prelude::*;
 use gtk::{Application, ApplicationWindow};
 
-fn gui() {
+pub(crate) fn gui() {
     let app = Application::builder()
         .application_id("org.example.HelloWorld")
         .build();
