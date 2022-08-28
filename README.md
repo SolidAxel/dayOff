@@ -1,4 +1,4 @@
-# dayOff
+# day_off
 Which day(s) of the week should you take off for max holidays off?
 ## Goal
 ---
